@@ -232,8 +232,12 @@ function loadCalc() {
                 //     display.setAttribute('style', 'font-size: 50px;');
                 // }
                  // Console Logs
-                 console.log(num1, operand, num2);
-                 console.log(operation);
+                 console.log(`num1: ${num1}`);
+                 console.log(`opr: ${operand}`);
+                 console.log(`num2: ${num2}`);
+                 console.log(`answer: ${calcAns}`);
+                 console.log(`state: ${operation}`);
+                 console.log('-------------------');
             }
         }
     }
