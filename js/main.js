@@ -74,6 +74,97 @@ function loadCalc() {
 
             // Click function
             function clickedOn() {
+
+                // The first number
+                if (operation === 0) {
+                    // Can make the first number negative, if nothing else is inputted yet
+                    if (calcBtns[i] === '-' && num1 === '') {
+                        num1 += '-';
+                    }
+                    // If the number doesn't have a decimal yet, add one
+                    else if (calcBtns[i] === '.' && !num1.includes('.')) {
+                        num1 += '.';
+                    }
+                    // If it's a number, concatenate it
+                    else if (typeof calcBtns[i] === 'number') {
+                        num1 += String(calcBtns[i]);
+                    }
+                    else if (calcBtns[i] === '+' || calcBtns[i] === '-' || calcBtns[i] === '/' || calcBtns[i] === 'X') {
+                        operation = 1;
+                        operand = calcBtns[i];
+                    }
+                    display.innerHTML = `${num1}`;
+                }
+
+                // The operand
+                if (operation === 1) {
+                    if (calcBtns[i] === '+' || calcBtns[i] === '-' || calcBtns[i] === '/' || calcBtns[i] === 'X') {
+                        operand = calcBtns[i];
+                    } else if (calcBtns[i] === '=') {
+                        if (operand === '+') {
+                            operation = 0;
+                            calcAns = Number(num1) + Number(num1);
+                        } else if (operand === '-') {
+                            operation = 0;
+                            calcAns = Number(num1) - Number(num1);
+                        } else if (operand === '/') {
+                            operation = 0;
+                            calcAns = Number(num1) / Number(num1);
+                        } else if (operand === 'X') {
+                            operation = 0;
+                            calcAns = Number(num1) * Number(num1);
+                        }
+                    } else {
+                        operation = 2;
+                    }
+                    display.innerHTML = `${operand}`;
+                }
+
+                // The second number
+                if (operation === 2) {
+                    if (calcBtns[i] === '.' && !num1.includes('.')) {
+                        num2 += '.';
+                    }
+                    // If it's a number, concatenate it
+                    else if (typeof calcBtns[i] === 'number') {
+                        num2 += String(calcBtns[i]);
+                        display.innerHTML = num2;
+                    } if (calcBtns[i] === '=') {
+                        if (operand === '+') {
+                            operation = 0;
+                            calcAns = Number(num1) + Number(num2);
+                            // num1 = num2;
+                            // num2 = '';
+                        } else if (operand === '-') {
+                            operation = 0;
+                            calcAns = Number(num1) - Number(num2);
+                            // num1 = num2;
+                            // num2 = '';
+                        } else if (operand === '/') {
+                            operation = 0;
+                            calcAns = Number(num1) / Number(num2);
+                            // num1 = num2;
+                            // num2 = '';
+                        } else if (operand === 'X') {
+                            operation = 0;
+                            calcAns = Number(num1) * Number(num2);
+                            // num1 = num2;
+                            // num2 = '';
+                        }
+                        display.innerHTML = `${num2}`;
+                    }
+
+                    
+
+                    // Console Logs
+                    console.log(num1, operand, num2);
+                    console.log(calcAns);
+                }
+                // Equals
+                if (calcBtns[i] === '=') {
+                    display.innerHTML = `${calcAns}`;
+                }
+
                 // Clear Button
                 if (calcBtns[i] === 'C') {
                     num1 = '';
@@ -81,118 +172,9 @@ function loadCalc() {
                     operand = '';
                     calcAns = 0;
                     operation = 0;
+                    display.innerHTML = `${calcAns}`;
                 }
-                // The first number
-                if (operation === 0) {
-                    // Can make the first number negative, if nothing else is inputted yet
-                    if (calcBtns[i] === '-' && num1 === '') {
-                        num1 += '-';
-                        console.log(num1);
-                    }
-                    // If the number doesn't have a decimal yet, add one
-                    else if (calcBtns[i] === '.' && !num1.includes('.')) {
-                        num1 += '.';
-                        console.log(num1);
-                    }
-                    // If it's a number, concatenate it
-                    else if (typeof calcBtns[i] === 'number') {
-                        num1 += String(calcBtns[i]);
-                        console.log(num1);
-                    }
-                    else if (calcBtns[i] === '+' || calcBtns[i] === '-' || calcBtns[i] === '/' || calcBtns[i] === 'X') {
-                        operation = 1;
-                        operand = calcBtns[i];
-                    }
-                }
-                if (operation === 1) {
-                    if (calcBtns[i] === '+' || calcBtns[i] === '-' || calcBtns[i] === '/' || calcBtns[i] === 'X') {
-                        operand = calcBtns[i];
-                    } else {
-                        operation = 2;
-                    }
-                }
-                if (operation === 2) {
-                    if (calcBtns[i] === '.' && !num1.includes('.')) {
-                        num1 += '.';
-                        console.log(num1);
-                    }
-                    // If it's a number, concatenate it
-                    else if (typeof calcBtns[i] === 'number') {
-                        num1 += String(calcBtns[i]);
-                        console.log(String(calcBtns[i]));
-                    } else if (calcBtns[i] === '+') {
-                        operation = 0;
-                        calcAns = Number(num1) + Number(num2);
-                    } else if (calcBtns[i] === '-') {
-                        operation = 0;
-                        calcAns = Number(num1) - Number(num2);
-                    } else if (calcBtns[i] === '/') {
-                        operation = 0;
-                        calcAns = Number(num1) / Number(num2);
-                    } else if (calcBtns[i] === 'X') {
-                        operation = 0;
-                        calcAns = Number(num1) * Number(num2);
-                    }
-                }
-                display.innerHTML = `${Number(num1)}`;
-                console.log(num1);
-                console.log(calcAns);
             }
         }
     }
 }
-
-
-// else if (calcBtns[i] === '=') {
-//     // Equals
-//     // If nothing after operand, should apply to self
-//     display.innerHTML = `${calcAns}`;
-// } else if (calcBtns[i] === 'C') {
-//     // Clear
-//     num1 = null;
-//     num2 = null;
-//     operand = null;
-//     calcAns = 0;
-
-
-
-
-
-
-// function clickedOn() {
-//     if (typeof calcBtns[i] === 'number') {
-//         // Numbers
-//         if (num1 === null) {
-//             // Can make the first number negative
-//             if (calcBtns[i] === '-') {
-//                 num1 += '-';
-//             } 
-//             // If the number doesn't have a decimal yet, add one
-//             else if (calcBtns[i] === '.' && !num1.includes('.')) {
-//                 num1 += '.';
-//             } else if (calcBtns[i] === '1') {
-//                 num1 += calcBtns[i];
-//             }
-//         } else {
-//             num2 = calcBtns[i];
-//         }
-//     } else if (calcBtns[i] === '=') {
-//         // Equals
-//         // If nothing after operand, should apply to self
-//         display.innerHTML = `${calcAns}`;
-//     }  else if (calcBtns[i] === 'C') { 
-//         // Clear
-//         num1 = null;
-//         num2 = null;
-//         operand = null;
-//         calcAns = 0;
-//     } else { 
-//         // Operands
-//         operand = calcBtns[i];
-//     }
-//     // Updates displays
-//     // console.log(num1, operand, num2);
-//     // Displays the button pressed
-//     display.innerHTML = `${Number(num1)}`;
-// }
-
