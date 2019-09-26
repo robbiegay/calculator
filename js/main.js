@@ -23,16 +23,16 @@ function loadCalc() {
     let container = renderElement('div', 'container-fluid');
     let row = renderElement('div', 'row');
 
-    let leftCol = renderElement('div', 'col-0 col-sm-1 col-md-2 col-lg-3');
-    let centerCol = renderElement('div', 'col-12 col-sm-10 col-md-8 col-lg-6 text-center');
-    let rightCol = renderElement('div', 'col-0 col-sm-1 col-md-2 col-lg-3');
+    let leftCol = renderElement('div', 'col-0 col-sm-0 col-md-1 col-lg-2');
+    let centerCol = renderElement('div', 'col-12 col-sm-12 col-md-10 col-lg-8 text-center');
+    let rightCol = renderElement('div', 'col-0 col-sm-0 col-md-1 col-lg-2');
 
     let title = renderElement('h1', 'my-5 display-4 text-white');
     title.innerHTML = 'Calculator';
 
     let displayRow = renderElement('div', 'row');
 
-    let display = renderElement('div', 'col bg-light display-4 text-right');
+    let display = renderElement('div', 'col bg-light text-right ml-0');
     display.id = 'displayWindow';
     display.setAttribute('style', 'height: 80px;');
     display.innerHTML = `${calcAns}`;
@@ -91,7 +91,13 @@ function loadCalc() {
                     }
                     // If it's a number, concatenate it
                     else if (typeof calcBtns[i] === 'number') {
-                        num1 += String(calcBtns[i]);
+                        // Stops input number from being longer than 15 digits
+                        if (num1.length < 15) {
+                            num1 += String(calcBtns[i]);
+                        }
+                        if (calcBtns[i] === 0) {
+                            num1 = '0';
+                        }
                     }
                     else if (calcBtns[i] === '+' || calcBtns[i] === '-' || calcBtns[i] === '/' || calcBtns[i] === 'X') {
                         operation = 1;
@@ -159,12 +165,18 @@ function loadCalc() {
                 // The second number
                 if (operation === 2) {
                     // Adds the decimal
-                    if (calcBtns[i] === '.' && !num1.includes('.')) {
+                    if (calcBtns[i] === '.' && !num2.includes('.')) {
                         num2 += '.';
                     }
                     // If it's a number, concatenate it
                     else if (typeof calcBtns[i] === 'number') {
-                        num2 += String(calcBtns[i]);
+                        // Stops input number from being longer than 15 digits
+                        if (num2.length < 15) {
+                            num2 += String(calcBtns[i]);
+                        }
+                        if (calcBtns[i] === 0) {
+                            num2 = '0';
+                        }
                         display.innerHTML = num2;
 
                         // If equal = calculate the result
@@ -196,6 +208,10 @@ function loadCalc() {
                 // Equals
                 if (calcBtns[i] === '=') {
                     display.innerHTML = `${calcAns}`;
+                    // If results = NaN, reset to 0
+                    if (calcAns === 'NaN') {
+                        calcAns = 0;
+                    }
                 }
 
                 // Clear Button
@@ -207,6 +223,12 @@ function loadCalc() {
                     operation = 0;
                     display.innerHTML = `${calcAns}`;
                 }
+
+                // if (calcAns.length > 10) {
+                //     display.setAttribute('style', 'font-size: 24px;');
+                // } else {
+                //     display.setAttribute('style', 'font-size: 50px;');
+                // }
                  // Console Logs
                  console.log(num1, operand, num2);
                  console.log(operation);
