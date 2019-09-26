@@ -28,7 +28,9 @@ function loadCalc() {
     let rightCol = renderElement('div', 'col-0 col-sm-0 col-md-1 col-lg-2');
 
     let title = renderElement('h1', 'my-5 display-4 text-white');
-    title.innerHTML = 'Calculator';
+    // Added a colorful title :)
+    title.innerHTML = '<span class="text-danger">C</span><span class="text-primary">a</span><span class="text-warning">l</span><span class="text-dark">c</span><span class="text-danger">u</span><span class="text-primary">l</span><span class="text-warning">a</span><span class="text-dark">t</span><span class="text-danger">o</span><span class="text-primary">r</span>';
+    // title.innerHTML = 'Calculator';
 
     let displayRow = renderElement('div', 'row');
 
