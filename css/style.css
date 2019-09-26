@@ -1,3 +1,8 @@
 html, body {
     height: 100%;
 }
+
+/* One option for really large numbers */
+#displayWindow {
+    overflow: scroll;
+}

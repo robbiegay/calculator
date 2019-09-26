@@ -30,7 +30,10 @@ function loadCalc() {
     let title = renderElement('h1', 'my-5 display-4 text-white');
     title.innerHTML = 'Calculator';
 
+    let displayRow = renderElement('div', 'row');
+
     let display = renderElement('div', 'col bg-light display-4 text-right');
+    display.id = 'displayWindow';
     display.setAttribute('style', 'height: 80px;');
     display.innerHTML = `${calcAns}`;
 
@@ -38,7 +41,8 @@ function loadCalc() {
 
     // Append Elements
     centerCol.appendChild(title);
-    centerCol.appendChild(display);
+    centerCol.appendChild(displayRow);
+    displayRow.appendChild(display)
     createCalc(20);
     centerCol.appendChild(bottom);
 
@@ -92,26 +96,28 @@ function loadCalc() {
                     else if (calcBtns[i] === '+' || calcBtns[i] === '-' || calcBtns[i] === '/' || calcBtns[i] === 'X') {
                         operation = 1;
                         operand = calcBtns[i];
+
+                        // For calculating on a second round of inputs
                     } else if (calcBtns[i] === '=') {
                         if (operand === '+') {
                             operation = 0;
                             calcAns = Number(num1) + Number(num2);
-                            // num1 = calcAns;
+                            num1 = calcAns;
                             // num2 = '';
                         } else if (operand === '-') {
                             operation = 0;
                             calcAns = Number(num1) - Number(num2);
-                            // num1 = calcAns;
+                            num1 = calcAns;
                             // num2 = '';
                         } else if (operand === '/') {
                             operation = 0;
                             calcAns = Number(num1) / Number(num2);
-                            // num1 = calcAns;
+                            num1 = calcAns;
                             // num2 = '';
                         } else if (operand === 'X') {
                             operation = 0;
                             calcAns = Number(num1) * Number(num2);
-                            // num1 = calcAns;
+                            num1 = calcAns;
                             // num2 = '';
                         }
                     }
@@ -126,23 +132,23 @@ function loadCalc() {
                         if (operand === '+') {
                             operation = 0;
                             calcAns = Number(num1) + Number(num1);
-                            num1 = calcAns;
-                            num2 = '';
+                            // num1 = calcAns;
+                            num2 = num1;
                         } else if (operand === '-') {
                             operation = 0;
                             calcAns = Number(num1) - Number(num1);
-                            num1 = calcAns;
-                            num2 = '';
+                            // num1 = calcAns;
+                            num2 = num1;
                         } else if (operand === '/') {
                             operation = 0;
                             calcAns = Number(num1) / Number(num1);
-                            num1 = calcAns;
-                            num2 = '';
+                            // num1 = calcAns;
+                            num2 = num1;
                         } else if (operand === 'X') {
                             operation = 0;
                             calcAns = Number(num1) * Number(num1);
-                            num1 = calcAns;
-                            num2 = '';
+                            // num1 = calcAns;
+                            num2 = num1;
                         }
                     } else {
                         operation = 2;
@@ -164,31 +170,28 @@ function loadCalc() {
                         // If equal = calculate the result
                     } if (calcBtns[i] === '=') {
                         if (operand === '+') {
-                            operation = 0;
+                            operation = 1;
                             calcAns = Number(num1) + Number(num2);
                             num1 = calcAns;
                             num2 = '';
                         } else if (operand === '-') {
-                            operation = 0;
+                            operation = 1;
                             calcAns = Number(num1) - Number(num2);
                             num1 = calcAns;
                             num2 = '';
                         } else if (operand === '/') {
-                            operation = 0;
+                            operation = 1;
                             calcAns = Number(num1) / Number(num2);
                             num1 = calcAns;
                             num2 = '';
                         } else if (operand === 'X') {
-                            operation = 0;
+                            operation = 1;
                             calcAns = Number(num1) * Number(num2);
                             num1 = calcAns;
                             num2 = '';
                         }
                         display.innerHTML = `${num2}`;
                     }
-                    // Console Logs
-                    console.log(num1, operand, num2);
-                    console.log(calcAns);
                 }
                 // Equals
                 if (calcBtns[i] === '=') {
@@ -204,6 +207,9 @@ function loadCalc() {
                     operation = 0;
                     display.innerHTML = `${calcAns}`;
                 }
+                 // Console Logs
+                 console.log(num1, operand, num2);
+                 console.log(operation);
             }
         }
     }
