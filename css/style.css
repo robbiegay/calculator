@@ -5,5 +5,5 @@ html, body {
 /* One option for really large numbers */
 #displayWindow {
     overflow: scroll;
-    font-size: 35px;
+    /* font-size: 35px; */
 }

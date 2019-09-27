@@ -29,7 +29,7 @@ function loadCalc() {
 
     let displayRow = renderElement('div', 'row');
 
-    let display = renderElement('div', 'col bg-light text-right ml-0');
+    let display = renderElement('div', 'col bg-light text-right display-4');
     display.id = 'displayWindow';
     display.setAttribute('style', 'height: 80px;');
     display.innerHTML = 0;
@@ -85,18 +85,30 @@ function clickedOn() {
     } else {
         numPress(this.id);
     }
+    // Debugging Logs:
+    console.log(`Equation: ${num1}  ${operand} ${num2}`);
+    console.log('---------------');
 }
 
 // Create multidigit numbers
 function numPress(inputNum) {
     if (operand === '') {
-        num1 += inputNum;
-        displayWindow.innerHTML = num1;
+        if (inputNum === '0' && num1 === '0') {
+            num1 = '';
+        } else if (num1.length < 10) {
+            num1 += inputNum;
+            displayWindow.innerHTML = num1;
+        }
     } else {
-        num2 += inputNum;
-        displayWindow.innerHTML = num2;
+        if (inputNum === '0' && num2 === '0') {
+            num2 = '';
+        } else if (num2.length < 10) {
+            num2 += inputNum;
+            displayWindow.innerHTML = num2;
+        }
     }
 }
+
 
 function symPress(inputSym) {
     switch (inputSym) {
@@ -123,13 +135,11 @@ function symPress(inputSym) {
             if (operand === '') {
                 if (!num1.includes('.')) {
                     num1 += '.';
-                    console.log(num1);
                     displayWindow.innerHTML = num1;
                 }
             } else {
                 if (!num2.includes('.')) {
                     num2 += '.';
-                    console.log(num2);
                     displayWindow.innerHTML = num2;
                 }
             }
@@ -154,8 +164,3 @@ function mathCalc(sym) {
             return Number(num1) * Number(num2);
     }
 }
-
-
-// if (calcBtns[i] === '.' && !num2.includes('.')) {
-//     num2 += '.';
-// }
