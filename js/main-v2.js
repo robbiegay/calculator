@@ -5,6 +5,7 @@ let calcBtns = ['C', '', '', '/', '7', '8', '9', 'X', '4', '5', '6', '-', '1', '
 // Default Values
 let num1 = '';
 let num2 = '';
+// let ans = '';
 let operand = '';
 
 // Function to render elements
@@ -29,7 +30,7 @@ function loadCalc() {
 
     let displayRow = renderElement('div', 'row');
 
-    let display = renderElement('div', 'col bg-light text-right ml-0');
+    let display = renderElement('div', 'col bg-light text-right display-4');
     display.id = 'displayWindow';
     display.setAttribute('style', 'height: 80px;');
     display.innerHTML = 0;
@@ -85,37 +86,69 @@ function clickedOn() {
     } else {
         numPress(this.id);
     }
+    // Debugging Logs:
+    console.log(`Equation: ${num1}  ${operand} ${num2}`);
+    console.log('---------------');
 }
 
 // Create multidigit numbers
 function numPress(inputNum) {
     if (operand === '') {
-        num1 += inputNum;
-        displayWindow.innerHTML = num1;
+        if (inputNum === '0' && num1 === '0') {
+            num1 = '';
+        } else if (num1.length < 10) {
+            num1 += inputNum;
+            displayWindow.innerHTML = num1;
+        }
     } else {
-        num2 += inputNum;
-        displayWindow.innerHTML = num2;
+        if (inputNum === '0' && num2 === '0') {
+            num2 = '';
+        } else if (num2.length < 10) {
+            num2 += inputNum;
+            displayWindow.innerHTML = num2;
+        }
     }
 }
+
 
 function symPress(inputSym) {
     switch (inputSym) {
         case '+':
-            displayWindow.innerHTML = '+';
-            operand = '+';
-            break;
+            if (num2 === '') {
+                displayWindow.innerHTML = '+';
+                operand = '+';
+                break;
+            } else {
+                multiCalc('+');
+                break;
+            }
         case '-':
-            displayWindow.innerHTML = '-';
-            operand = '-';
-            break;
+            if (num2 === '') {
+                displayWindow.innerHTML = '-';
+                operand = '-';
+                break;
+            } else {
+                multiCalc('-');
+                break;
+            }
         case '/':
-            displayWindow.innerHTML = '/';
-            operand = '/';
-            break;
+            if (num2 === '') {
+                displayWindow.innerHTML = '/';
+                operand = '/';
+                break;
+            } else {
+                multiCalc('/');
+                break;
+            }
         case 'X':
-            displayWindow.innerHTML = '*';
-            operand = '*';
-            break;
+            if (num2 === '') {
+                displayWindow.innerHTML = 'X';
+                operand = '*';
+                break;
+            } else {
+                multiCalc('*');
+                break;
+            }
         case '=':
             displayWindow.innerHTML = mathCalc(operand);
             break;
@@ -123,13 +156,11 @@ function symPress(inputSym) {
             if (operand === '') {
                 if (!num1.includes('.')) {
                     num1 += '.';
-                    console.log(num1);
                     displayWindow.innerHTML = num1;
                 }
             } else {
                 if (!num2.includes('.')) {
                     num2 += '.';
-                    console.log(num2);
                     displayWindow.innerHTML = num2;
                 }
             }
@@ -137,6 +168,7 @@ function symPress(inputSym) {
         case 'C':
             num1 = '';
             num2 = '';
+            // ans = '';
             operand = '';
             displayWindow.innerHTML = 0;
     }
@@ -145,17 +177,40 @@ function symPress(inputSym) {
 function mathCalc(sym) {
     switch (sym) {
         case '+':
-            return Number(num1) + Number(num2);
+            num1 = Number(num1) + Number(num2);
+            num2 = '';
+            return num1;
         case '-':
-            return Number(num1) - Number(num2);
+            num1 = Number(num1) - Number(num2);
+            num2 = '';
+            return num1;
         case '/':
-            return Number(num1) / Number(num2);
+            num1 = Number(num1) / Number(num2);
+            num2 = '';
+            return num1;
         case '*':
-            return Number(num1) * Number(num2);
+            num1 = Number(num1) * Number(num2);
+            num2 = '';
+            return num1;
     }
 }
 
-
-// if (calcBtns[i] === '.' && !num2.includes('.')) {
-//     num2 += '.';
-// }
+function multiCalc(sym) {
+    switch (sym) {
+        case '+':
+            num1 = Number(num1) + Number(num2);
+            num2 = '';
+            break;
+        case '-':
+            num1 = Number(num1) - Number(num2);
+            num2 = '';
+            break;
+        case '/':
+            num1 = Number(num1) / Number(num2);
+            num2 = '';
+            break;
+        case '*':
+            num1 = Number(num1) * Number(num2);
+            num2 = '';
+    }
+}
