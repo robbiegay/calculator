@@ -5,8 +5,10 @@ let calcBtns = ['C', '', '', '/', '7', '8', '9', 'X', '4', '5', '6', '-', '1', '
 // Default Values
 let num1 = '';
 let num2 = '';
-// let ans = '';
 let operand = '';
+// Values for multi equal press
+let equalPress = 0;
+let equalTemp = 0;
 
 // Function to render elements
 function renderElement(element, classes) {
@@ -150,8 +152,17 @@ function symPress(inputSym) {
                 break;
             }
         case '=':
-            displayWindow.innerHTML = mathCalc(operand);
-            break;
+            // Cases for multi equal press
+            if (num2 === '') {
+                equalPress ++;
+                displayWindow.innerHTML = equalCalc(operand);
+                break;
+            } else {
+                equalPress = 0;
+                displayWindow.innerHTML = mathCalc(operand);
+                break;
+            }
+
         case '.':
             if (operand === '') {
                 if (!num1.includes('.')) {
@@ -168,7 +179,6 @@ function symPress(inputSym) {
         case 'C':
             num1 = '';
             num2 = '';
-            // ans = '';
             operand = '';
             displayWindow.innerHTML = 0;
     }
@@ -212,5 +222,30 @@ function multiCalc(sym) {
         case '*':
             num1 = Number(num1) * Number(num2);
             num2 = '';
+    }
+}
+
+// Function for multi equal press
+function equalCalc(sym) {
+    switch (sym) {
+        case '+':
+            if (equalPress < 2) {
+                equalTemp = num1;
+            }
+            num1 = Number(num1) + Number(equalTemp);
+            num2 = '';
+            return num1;
+        case '-':
+            num1 = Number(num1) - Number(num1);
+            num2 = '';
+            return num1;
+        case '/':
+            num1 = Number(num1) / Number(num1);
+            num2 = '';
+            return num1;
+        case '*':
+            num1 = Number(num1) * Number(num1);
+            num2 = '';
+            return num1;
     }
 }
