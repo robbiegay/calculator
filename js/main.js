@@ -186,7 +186,10 @@ function loadCalc() {
                         display.innerHTML = num2;
 
                         // If equal = calculate the result
-                    } if (calcBtns[i] === '=') {
+                    } 
+
+                    
+                    if (calcBtns[i] === '=') {
                         if (operand === '+') {
                             operation = 1;
                             calcAns = Number(num1) + Number(num2);
@@ -209,7 +212,8 @@ function loadCalc() {
                             // num2 = '';
                         }
                         display.innerHTML = `${num2}`;
-                    } if (calcBtns[i] === '+') {
+                    } 
+                    if (calcBtns[i] === '+') {
                         operation = 2;
                         calcAns = Number(num1) + Number(num2);
                         num1 = calcAns;
