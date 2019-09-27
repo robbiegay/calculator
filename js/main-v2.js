@@ -3,7 +3,8 @@
 let calcBtns = ['C', '', '', '/', '7', '8', '9', 'X', '4', '5', '6', '-', '1', '2', '3', '+', '0', '', '.', '='];
 
 // Default Values
-let num1 = 0;
+let num1 = '';
+let num2 = '';
 let operand = '';
 
 // Function to render elements
@@ -31,7 +32,7 @@ function loadCalc() {
     let display = renderElement('div', 'col bg-light text-right ml-0');
     display.id = 'displayWindow';
     display.setAttribute('style', 'height: 80px;');
-    display.innerHTML = `${0}`;
+    display.innerHTML = 0;
 
     let bottom = renderElement('div', 'p-5');
 
@@ -77,47 +78,64 @@ function loadCalc() {
 
 
 // CALC LOGIC
+// Differentiates between numbers and symbols, converts number values to numbers
 function clickedOn() {
     if (this.id === 'C' || this.id === '/' || this.id === 'X' || this.id === '-' || this.id === '+' || this.id === '=' || this.id === '.') {
-        let symValue = this.id;
-        symPress(symValue);
+        symPress(this.id);
     } else {
-        let numValue = Number(this.id);
-        numPress(numValue);
+        numPress(this.id);
     }
 }
 
+// Create multidigit numbers
 function numPress(inputNum) {
     if (operand === '') {
-
-        num1 = Number(String(num1) + String(inputNum));
+        num1 += inputNum;
+        displayWindow.innerHTML = num1;
     } else {
-        if (operand = '+') {
-            num1 += inputNum;
-        } else if (operand = '-') {
-            num1 -= inputNum;
-        } else if (operand = '/') {
-            num1 /= inputNum;
-        } else if (operand = 'X') {
-            num1 *= inputNum;
-        }
+        num2 += inputNum;
+        displayWindow.innerHTML = num2;
     }
-    displayWindow.innerHTML = num1;
 }
 
 function symPress(inputSym) {
-    if (inputSym === 'C') {
-        num1 = 0;
-        operand = '';
-        displayWindow.innerHTML = 0;
-    } else if (inputSym === '.') {
-        alert('You pressed .');
-    } else if (inputSym === '=') {
-        alert('You pressed =');
-    } else {
-        operand = inputSym;
-        displayWindow.innerHTML = operand;
+    switch (inputSym) {
+        case '+':
+            displayWindow.innerHTML = '+';
+            operand = '+';
+            break;
+        case '-':
+            displayWindow.innerHTML = '-';
+            operand = '-';
+            break;
+        case '/':
+            displayWindow.innerHTML = '/';
+            operand = '/';
+            break;
+        case 'X':
+            displayWindow.innerHTML = '*';
+            operand = '*';
+            break;
+        case '=':
+            displayWindow.innerHTML = mathCalc(operand);
+            break;
+        case 'C':
+            num1 = '';
+            num2 = '';
+            operand = '';
+            displayWindow.innerHTML = 0;
     }
-    console.log(`Input symbol: ${inputSym}`);
-    console.log(`Operand: ${operand}`);
+}
+
+function mathCalc(sym) {
+    switch (sym) {
+        case '+':
+            return Number(num1) + Number(num2);
+        case '-':
+            return Number(num1) - Number(num2);
+        case '/':
+            return Number(num1) / Number(num2);
+        case '*':
+            return Number(num1) * Number(num2);
+    }
 }
