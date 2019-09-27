@@ -98,7 +98,9 @@ function loadCalc() {
                             num1 += String(calcBtns[i]);
                         }
                         if (calcBtns[i] === 0) {
-                            num1 = '0';
+                            if (num1 === '') {
+                                num1 = '0';
+                            }
                         }
                     }
                     else if (calcBtns[i] === '+' || calcBtns[i] === '-' || calcBtns[i] === '/' || calcBtns[i] === 'X') {
@@ -140,23 +142,23 @@ function loadCalc() {
                         if (operand === '+') {
                             operation = 0;
                             calcAns = Number(num1) + Number(num1);
-                            // num1 = calcAns;
                             num2 = num1;
+                            num1 = calcAns;
                         } else if (operand === '-') {
                             operation = 0;
-                            calcAns = Number(num1) - Number(num1);
-                            // num1 = calcAns;
-                            num2 = num1;
+                            calcAns = Number(num1) - Number(num2);
+                            // num2 = num1;
+                            num1 = calcAns;
                         } else if (operand === '/') {
                             operation = 0;
-                            calcAns = Number(num1) / Number(num1);
-                            // num1 = calcAns;
-                            num2 = num1;
+                            calcAns = Number(num1) / Number(num2);
+                            // num2 = num1;
+                            num1 = calcAns;
                         } else if (operand === 'X') {
                             operation = 0;
                             calcAns = Number(num1) * Number(num1);
-                            // num1 = calcAns;
-                            num2 = num1;
+                            // num2 = num1;
+                            num1 = calcAns;
                         }
                     } else {
                         operation = 2;
@@ -177,7 +179,9 @@ function loadCalc() {
                             num2 += String(calcBtns[i]);
                         }
                         if (calcBtns[i] === 0) {
-                            num2 = '0';
+                            if (num1 === '') {
+                                num1 = '0';
+                            }
                         }
                         display.innerHTML = num2;
 
@@ -192,17 +196,17 @@ function loadCalc() {
                             operation = 1;
                             calcAns = Number(num1) - Number(num2);
                             num1 = calcAns;
-                            num2 = '';
+                            // num2 = '';
                         } else if (operand === '/') {
                             operation = 1;
                             calcAns = Number(num1) / Number(num2);
                             num1 = calcAns;
-                            num2 = '';
+                            // num2 = '';
                         } else if (operand === 'X') {
                             operation = 1;
                             calcAns = Number(num1) * Number(num2);
                             num1 = calcAns;
-                            num2 = '';
+                            // num2 = '';
                         }
                         display.innerHTML = `${num2}`;
                     } if (calcBtns[i] === '+') {
@@ -211,19 +215,19 @@ function loadCalc() {
                         num1 = calcAns;
                         num2 = '';
                         display.innerHTML = '+';
-                    }if (calcBtns[i] === '-') {
+                    } if (calcBtns[i] === '-') {
                         operation = 2;
                         calcAns = Number(num1) - Number(num2);
                         num1 = calcAns;
                         num2 = '';
                         display.innerHTML = '-';
-                    }if (calcBtns[i] === '/') {
+                    } if (calcBtns[i] === '/') {
                         operation = 2;
                         calcAns = Number(num1) / Number(num2);
                         num1 = calcAns;
                         num2 = '';
                         display.innerHTML = '/';
-                    }if (calcBtns[i] === 'X') {
+                    } if (calcBtns[i] === 'X') {
                         operation = 2;
                         calcAns = Number(num1) * Number(num2);
                         num1 = calcAns;
@@ -244,6 +248,10 @@ function loadCalc() {
 
                 // Clear Button
                 if (calcBtns[i] === 'C') {
+                    clear();
+                }
+
+                function clear() {
                     num1 = '';
                     num2 = '';
                     operand = '';
