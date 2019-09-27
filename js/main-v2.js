@@ -119,6 +119,21 @@ function symPress(inputSym) {
         case '=':
             displayWindow.innerHTML = mathCalc(operand);
             break;
+        case '.':
+            if (operand === '') {
+                if (!num1.includes('.')) {
+                    num1 += '.';
+                    console.log(num1);
+                    displayWindow.innerHTML = num1;
+                }
+            } else {
+                if (!num2.includes('.')) {
+                    num2 += '.';
+                    console.log(num2);
+                    displayWindow.innerHTML = num2;
+                }
+            }
+            break;
         case 'C':
             num1 = '';
             num2 = '';
@@ -139,3 +154,8 @@ function mathCalc(sym) {
             return Number(num1) * Number(num2);
     }
 }
+
+
+// if (calcBtns[i] === '.' && !num2.includes('.')) {
+//     num2 += '.';
+// }
