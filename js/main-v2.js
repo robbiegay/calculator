@@ -348,7 +348,8 @@ function clear() {
 // 
 // Things that shouldn't be allowed:
 // 00003 (leading zeros); 4.56.87 (multiple decimal points); pressing a symbol before first inputting a number;
-// pressing multiple operands in a row --> I made it so that this changes your selected operand (ex. 1 - * + 2 = 3)
+// pressing multiple operands in a row --> I made it so that this changes your selected operand (ex. 1 - * + 2 = 3);
+// Inputting an unlimited amount of numbers --> I capped input at 10 digits
 // 
 // Certain cases result in NaN: 0 / 0; . + .
 // In these instances, I have the calculator display "-Undefined-" and then internally reset all of its values
