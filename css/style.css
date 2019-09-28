@@ -2,8 +2,7 @@ html, body {
     height: 100%;
 }
 
-/* One option for really large numbers */
+/* Scrolls the display if numbers get too large */
 #displayWindow {
     overflow: scroll;
-    /* font-size: 35px; */
 }
