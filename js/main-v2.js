@@ -130,49 +130,67 @@ function symPress(inputSym) {
     }
     switch (inputSym) {
         case '+':
-            if (num2 === '') {
-                displayWindow.innerHTML = '+';
-                operand = '+';
-                break;
-            } else {
-                multiCalc(operand);
-                operand = '+';
-                break;
+            if (num1 !== '') {
+                if (num2 === '') {
+                    displayWindow.innerHTML = '+';
+                    operand = '+';
+                    break;
+                } else {
+                    multiCalc(operand);
+                    displayWindow.innerHTML = num1;
+                    operand = '+';
+                    break;
+                }
             }
+            break;
         case '-':
-            if (num2 === '') {
-                displayWindow.innerHTML = '-';
-                operand = '-';
-                break;
-            } else {
-                multiCalc(operand);
-                operand = '-';
-                break;
+            if (num1 !== '') {
+                if (num2 === '') {
+                    displayWindow.innerHTML = '-';
+                    operand = '-';
+                    break;
+                } else {
+                    multiCalc(operand);
+                    displayWindow.innerHTML = num1;
+                    operand = '-';
+                    break;
+                }
             }
+            break;
         case '/':
-            if (num2 === '') {
-                displayWindow.innerHTML = '/';
-                operand = '/';
-                break;
-            } else {
-                multiCalc(operand);
-                operand = '/';
-                break;
+            if (num1 !== '') {
+                if (num2 === '') {
+                    displayWindow.innerHTML = '/';
+                    operand = '/';
+                    break;
+                } else {
+                    multiCalc(operand);
+                    displayWindow.innerHTML = num1;
+                    operand = '/';
+                    break;
+                }
             }
+            break;
         case 'X':
-            if (num2 === '') {
-                displayWindow.innerHTML = 'X';
-                operand = '*';
-                break;
-            } else {
-                multiCalc(operand);
-                operand = '*';
-                break;
+            if (num1 !== '') {
+                if (num2 === '') {
+                    displayWindow.innerHTML = 'X';
+                    operand = '*';
+                    break;
+                } else {
+                    multiCalc(operand);
+                    displayWindow.innerHTML = num1;
+                    operand = '*';
+                    break;
+                }
             }
+            break;
         case '=':
             eqPress = true;
             // Cases for multi equal press
-            if (num2 === '') {
+            if (num1 === '' && num2 === '') {
+                break;
+            } else if (num2 === '') {
                 equalPressNum++;
                 displayWindow.innerHTML = equalCalc(operand);
                 break;
