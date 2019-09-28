@@ -89,6 +89,10 @@ function clickedOn() {
     } else {
         numPress(this.id);
     }
+    if (displayWindow.innerHTML === 'NaN') {
+        clear();
+        displayWindow.innerHTML = '-Undefined-';
+    }
     // Debugging Logs:
     console.log(`Equation: ${num1}  ${operand} ${num2}`);
     console.log(`Equal temp num: ${equalTemp}; eqPress: ${eqPress}`)
@@ -288,6 +292,8 @@ function equalCalc(sym) {
             }
             num1 = Number(num1) * Number(equalTemp);
             num2 = '';
+            return num1;
+        case '':
             return num1;
     }
 }
