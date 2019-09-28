@@ -7,8 +7,8 @@ let num1 = '';
 let num2 = '';
 let operand = '';
 // Values for multi equal press
-let equalPressNum = 0;
-let equalTemp = 0;
+// let equalPressNum = 0;
+let equalTemp = undefined;
 let eqPress = false;
 
 // Function to render elements
@@ -91,14 +91,14 @@ function clickedOn() {
     }
     // Debugging Logs:
     console.log(`Equation: ${num1}  ${operand} ${num2}`);
-    console.log(`Equal press state: ${equalPressNum}; Equal temp num: ${equalTemp}`)
+    console.log(`Equal temp num: ${equalTemp}; eqPress: ${eqPress}`)
     console.log('---------------');
 }
 
 // Create multidigit numbers
 function numPress(inputNum) {
-    equalPressNum = 0;
-    equalTemp = 0;
+    // equalPressNum = 0;
+    equalTemp = undefined;
     if (eqPress) {
         clear();
     }
@@ -124,8 +124,8 @@ function numPress(inputNum) {
 
 function symPress(inputSym) {
     if (inputSym !== '=') {
-        equalPressNum = 0;
-        equalTemp = 0;
+        // equalPressNum = 0;
+        equalTemp = undefined;
         eqPress = false;
     }
     switch (inputSym) {
@@ -191,11 +191,12 @@ function symPress(inputSym) {
             if (num1 === '' && num2 === '') {
                 break;
             } else if (num2 === '') {
-                equalPressNum++;
+                // equalPressNum++;
                 displayWindow.innerHTML = equalCalc(operand);
                 break;
             } else {
-                equalPressNum = 0;
+                equalTemp = num2;
+                // equalPressNum = 0;
                 displayWindow.innerHTML = mathCalc(operand);
                 break;
             }
@@ -265,28 +266,28 @@ function multiCalc(sym) {
 function equalCalc(sym) {
     switch (sym) {
         case '+':
-            if (equalPressNum < 2) {
+            if (equalTemp === undefined) {
                 equalTemp = num1;
             }
             num1 = Number(num1) + Number(equalTemp);
             num2 = '';
             return num1;
         case '-':
-            if (equalPressNum < 2) {
+            if (equalTemp === undefined) {
                 equalTemp = num1;
             }
             num1 = Number(num1) - Number(equalTemp);
             num2 = '';
             return num1;
         case '/':
-            if (equalPressNum < 2) {
+            if (equalTemp === undefined) {
                 equalTemp = num1;
             }
             num1 = Number(num1) / Number(equalTemp);
             num2 = '';
             return num1;
         case '*':
-            if (equalPressNum < 2) {
+            if (equalTemp === undefined) {
                 equalTemp = num1;
             }
             num1 = Number(num1) * Number(equalTemp);
@@ -300,7 +301,7 @@ function clear() {
     num2 = '';
     operand = '';
     displayWindow.innerHTML = 0;
-    equalPressNum = 0;
-    equalTemp = 0;
+    // equalPressNum = 0;
+    equalTemp = undefined;
     eqPress = false;
 }
