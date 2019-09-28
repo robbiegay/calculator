@@ -9,6 +9,7 @@ let operand = '';
 // Values for multi equal press
 let equalPress = 0;
 let equalTemp = 0;
+let eqPress = false;
 
 // Function to render elements
 function renderElement(element, classes) {
@@ -90,14 +91,22 @@ function clickedOn() {
     }
     // Debugging Logs:
     console.log(`Equation: ${num1}  ${operand} ${num2}`);
+    console.log(`Equal press state: ${equalPress}; Equal temp num: ${equalTemp}`)
     console.log('---------------');
 }
 
 // Create multidigit numbers
 function numPress(inputNum) {
+    equalPress = 0;
+    equalTemp = 0;
+    if (eqPress) {
+        clear();
+    }
     if (operand === '') {
+        // Makes it so you can't enter 00000
         if (inputNum === '0' && num1 === '0') {
             num1 = '';
+            // Caps the input length at 10 digits
         } else if (num1.length < 10) {
             num1 += inputNum;
             displayWindow.innerHTML = num1;
@@ -114,6 +123,10 @@ function numPress(inputNum) {
 
 
 function symPress(inputSym) {
+    if (inputSym !== '=') {
+        equalPress = 0;
+        equalTemp = 0;
+    }
     switch (inputSym) {
         case '+':
             if (num2 === '') {
@@ -121,7 +134,8 @@ function symPress(inputSym) {
                 operand = '+';
                 break;
             } else {
-                multiCalc('+');
+                multiCalc(operand);
+                operand = '+';
                 break;
             }
         case '-':
@@ -130,7 +144,8 @@ function symPress(inputSym) {
                 operand = '-';
                 break;
             } else {
-                multiCalc('-');
+                multiCalc(operand);
+                operand = '-';
                 break;
             }
         case '/':
@@ -139,7 +154,8 @@ function symPress(inputSym) {
                 operand = '/';
                 break;
             } else {
-                multiCalc('/');
+                multiCalc(operand);
+                operand = '/';
                 break;
             }
         case 'X':
@@ -148,13 +164,15 @@ function symPress(inputSym) {
                 operand = '*';
                 break;
             } else {
-                multiCalc('*');
+                multiCalc(operand);
+                operand = '*';
                 break;
             }
         case '=':
+            eqPress = true;
             // Cases for multi equal press
             if (num2 === '') {
-                equalPress ++;
+                equalPress++;
                 displayWindow.innerHTML = equalCalc(operand);
                 break;
             } else {
@@ -177,13 +195,11 @@ function symPress(inputSym) {
             }
             break;
         case 'C':
-            num1 = '';
-            num2 = '';
-            operand = '';
-            displayWindow.innerHTML = 0;
+            clear();
     }
 }
 
+// Normal calculations. [] + [] =
 function mathCalc(sym) {
     switch (sym) {
         case '+':
@@ -205,6 +221,7 @@ function mathCalc(sym) {
     }
 }
 
+// [] + [] + []... =
 function multiCalc(sym) {
     switch (sym) {
         case '+':
@@ -225,7 +242,7 @@ function multiCalc(sym) {
     }
 }
 
-// Function for multi equal press
+// [] + = = = OR [] + [] = = =
 function equalCalc(sym) {
     switch (sym) {
         case '+':
@@ -236,16 +253,35 @@ function equalCalc(sym) {
             num2 = '';
             return num1;
         case '-':
-            num1 = Number(num1) - Number(num1);
+            if (equalPress < 2) {
+                equalTemp = num1;
+            }
+            num1 = Number(num1) - Number(equalTemp);
             num2 = '';
             return num1;
         case '/':
-            num1 = Number(num1) / Number(num1);
+            if (equalPress < 2) {
+                equalTemp = num1;
+            }
+            num1 = Number(num1) / Number(equalTemp);
             num2 = '';
             return num1;
         case '*':
-            num1 = Number(num1) * Number(num1);
+            if (equalPress < 2) {
+                equalTemp = num1;
+            }
+            num1 = Number(num1) * Number(equalTemp);
             num2 = '';
             return num1;
     }
+}
+
+function clear() {
+    num1 = '';
+    num2 = '';
+    operand = '';
+    displayWindow.innerHTML = 0;
+    equalPress = 0;
+    equalTemp = 0;
+    eqPress = false;
 }
