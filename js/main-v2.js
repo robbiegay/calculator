@@ -7,7 +7,6 @@ let num1 = '';
 let num2 = '';
 let operand = '';
 // Values for multi equal press
-// let equalPressNum = 0;
 let equalTemp = undefined;
 let eqPress = false;
 
@@ -29,7 +28,8 @@ function loadCalc() {
     let rightCol = renderElement('div', 'col-0 col-sm-0 col-md-1 col-lg-2');
 
     let title = renderElement('h1', 'my-5 display-4 text-white');
-    title.innerHTML = 'Calculator';
+    // title.innerHTML = 'Calculator';
+    title.innerHTML = '<span class="text-danger">C</span><span class="text-primary">a</span><span class="text-warning">l</span><span class="text-dark">c</span><span class="text-danger">u</span><span class="text-primary">l</span><span class="text-warning">a</span><span class="text-dark">t</span><span class="text-danger">o</span><span class="text-primary">r</span>';
 
     let displayRow = renderElement('div', 'row');
 
@@ -97,7 +97,6 @@ function clickedOn() {
 
 // Create multidigit numbers
 function numPress(inputNum) {
-    // equalPressNum = 0;
     equalTemp = undefined;
     if (eqPress) {
         clear();
@@ -124,7 +123,6 @@ function numPress(inputNum) {
 
 function symPress(inputSym) {
     if (inputSym !== '=') {
-        // equalPressNum = 0;
         equalTemp = undefined;
         eqPress = false;
     }
@@ -191,12 +189,10 @@ function symPress(inputSym) {
             if (num1 === '' && num2 === '') {
                 break;
             } else if (num2 === '') {
-                // equalPressNum++;
                 displayWindow.innerHTML = equalCalc(operand);
                 break;
             } else {
                 equalTemp = num2;
-                // equalPressNum = 0;
                 displayWindow.innerHTML = mathCalc(operand);
                 break;
             }
@@ -301,7 +297,6 @@ function clear() {
     num2 = '';
     operand = '';
     displayWindow.innerHTML = 0;
-    // equalPressNum = 0;
     equalTemp = undefined;
     eqPress = false;
 }
