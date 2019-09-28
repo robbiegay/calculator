@@ -111,6 +111,9 @@ function numPress(inputNum) {
             num1 = '';
             // Caps the input length at 10 digits
         } else if (num1.length < 10) {
+            if (num1 === '0') {
+                num1 = '';
+            }
             num1 += inputNum;
             displayWindow.innerHTML = num1;
         }
@@ -118,6 +121,9 @@ function numPress(inputNum) {
         if (inputNum === '0' && num2 === '0') {
             num2 = '';
         } else if (num2.length < 10) {
+            if (num2 === '0') {
+                num2 = '';
+            }
             num2 += inputNum;
             displayWindow.innerHTML = num2;
         }
