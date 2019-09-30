@@ -59,7 +59,7 @@ function loadCalc() {
         btn.appendChild(text);
         if (calcBtns[i] !== '') {
             btn.addEventListener('click', clickedOn);
-        // Disables the blank buttons
+            // Disables the blank buttons
         } else {
             btn.disabled = true;
         }
@@ -90,7 +90,7 @@ function clickedOn() {
     } else {
         numPress(this.id);
     }
-    // If NaN (for example, from 0/0 or .+. --> clears the calc and displays a message)
+    // If NaN (for example, from 0/0) clears the calc and displays a message)
     if (displayWindow.innerHTML === 'NaN') {
         clear();
         displayWindow.innerHTML = '-Undefined-';
@@ -114,7 +114,7 @@ function numPress(inputNum) {
         // Makes it so you can't enter 00000
         if (inputNum === '0' && num1 === '0') {
             num1 = '';
-        // Caps the input length at 10 digits
+            // Caps the input length at 10 digits
         } else if (num1.length < 10) {
             if (num1 === '0') {
                 num1 = '';
@@ -122,7 +122,7 @@ function numPress(inputNum) {
             num1 += inputNum;
             displayWindow.innerHTML = num1;
         }
-    // Sets num2
+        // Sets num2
     } else {
         if (inputNum === '0' && num2 === '0') {
             num2 = '';
@@ -154,8 +154,8 @@ function symPress(inputSym) {
                     displayWindow.innerHTML = '+';
                     operand = '+';
                     break;
-                // If it has been defined, calculate the last 2 numbers, display that result,
-                // place the result in num1, and clear num2
+                    // If it has been defined, calculate the last 2 numbers, display that result,
+                    // place the result in num1, and clear num2
                 } else {
                     multiCalc(operand);
                     displayWindow.innerHTML = num1;
@@ -207,16 +207,21 @@ function symPress(inputSym) {
             }
             break;
         case '=':
+            // If either input is '.' --> display "Illegal use of decimal"
+            if (num1 === '.' || num2 === '.') {
+                clear();
+                displayWindow.innerHTML = '-Invalid Use of Decimal-';
+            }
             // Records a boolean for if = was the last sym pressed
             eqPress = true;
             // If neither num1 nor num2 have been defined yet, do nothing
             if (num1 === '' && num2 === '') {
                 break;
-            // If num2 is undefined, calculate using num1 [operand] num1
+                // If num2 is undefined, calculate using num1 [operand] num1
             } else if (num2 === '') {
                 displayWindow.innerHTML = equalCalc(operand);
                 break;
-            // If num2 has been defined, record num2 in the equal sign's temp num holder, then calculate
+                // If num2 has been defined, record num2 in the equal sign's temp num holder, then calculate
             } else {
                 equalTemp = num2;
                 displayWindow.innerHTML = mathCalc(operand);
