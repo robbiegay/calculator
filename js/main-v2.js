@@ -148,6 +148,10 @@ document.addEventListener('keydown', function (e) {
             numPress('9');
             break;
     }
+    if (displayWindow.innerHTML === 'NaN') {
+        clear();
+        displayWindow.innerHTML = '-Undefined-';
+    }
 });
 
 
