@@ -79,6 +79,77 @@ function loadCalc() {
     app.appendChild(container);
 }
 
+// Keyboard btns
+document.addEventListener('keydown', function (e) {
+    // Keys: Shift and "=/+" --> "+"
+    if (e.keyCode === 187 && e.shiftKey) {
+        symPress('+');
+    }
+    // Key "=/+" without Shift --> "="
+    if (e.keyCode === 187 && !e.shiftKey) {
+        symPress('=');
+    }
+    // Can use * for multiply
+    if (e.keyCode === 56 && e.shiftKey) {
+        symPress('X');
+    }
+    if (e.keyCode === 56 && !e.shiftKey) {
+        numPress('8');
+    }
+    switch (e.keyCode) {
+        case 67:
+            symPress('C');
+            break;
+        // Delete key also --> Clear
+        case 8:
+            symPress('C');
+            break;
+        case 191:
+            symPress('/');
+            break;
+        case 88:
+            symPress('X');
+            break;
+        case 189:
+            symPress('-');
+            break;
+        // Allows "enter" to be used as "=", since that seems pretty intuitive
+        case 13:
+            symPress('=');
+            break;
+        case 190:
+            symPress('.');
+            break;
+        case 48:
+            numPress('0');
+            break;
+        case 49:
+            numPress('1');
+            break;
+        case 50:
+            numPress('2');
+            break;
+        case 51:
+            numPress('3');
+            break;
+        case 52:
+            numPress('4');
+            break;
+        case 53:
+            numPress('5');
+            break;
+        case 54:
+            numPress('6');
+            break;
+        case 55:
+            numPress('7');
+            break;
+        case 57:
+            numPress('9');
+            break;
+    }
+});
+
 
 
 
@@ -359,7 +430,7 @@ function clear() {
 // Certain cases result in NaN: 0 / 0; . + .
 // In these instances, I have the calculator display "-Undefined-" and then internally reset all of its values
 // I believe that "undefined" is actually the correct answer for 0 / 0. 
-// For . + . --> this just reflects an illegal input situation
+// For . + . --> I've set the display to read "Invalid Use of Decimal"
 // 
 // A case that I did not solve for:
 // .1 + .2 (wasn't really sure how to approach solving this)
@@ -370,3 +441,6 @@ function clear() {
 // Urgent vs Less Urgent; High vs Low Importance
 // This was a much better way to write code. For the final few edge cases, however, it was still pretty 
 // difficult to add fixes while also trying to avoid breaking anything else (which I did several times).
+
+// Added keyboard input. Made it so that * and X can both be used for multiplication. C and Delete can both 
+// be used for clear. = and Enter can both be used for equals.
