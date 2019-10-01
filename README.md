@@ -24,16 +24,17 @@ Testing the various combination of keyboard inputs was the hardest aspect of thi
 combination of keys:
 
 Key:
-\[\] --> number
-\+ --> represents any operand
-= --> equal key
+* [] --> number
+* \+ --> represents any operand
+* = --> equal key
 
-[] + [] = --> Basic math function
-[] + [] + []... = --> Should allow a string of inputs and operands
-[] + [] =, [] + [] = --> Should reset after an equal sign directly followed by a number
-[] + [] =, + [] = --> An equal sign followed by an operand should adding, multiplying, etc a new number to the previous answer
-[] + = = =... --> Should keep adding, the first number to the running sum
-[] + [] = = =... --> Should continue to add the running sum
+Testing Cases:
+* [] + [] = --> Basic math function
+* [] + [] + []... = --> Should allow a string of inputs and operands
+* [] + [] =, [] + [] = --> Should reset after an equal sign directly followed by a number
+* [] + [] =, + [] = --> An equal sign followed by an operand should adding, multiplying, etc a new number to the previous answer
+* [] + = = =... --> Should keep adding, the first number to the running sum
+* [] + [] = = =... --> Should continue to add the running sum
 
 Things that shouldn't be allowed:
 * Leading zeros (ex. 00003)
@@ -50,7 +51,10 @@ Certain situation resulted in NaN:
 Both cases situations also resets the calculator's internal memory.
 
 A case that I did not solve for:
-.1 + .2 
+* Floating point errors (ex. .1 + .2 = 0.30000000000000004) 
+
+@TaylorAkin suggested a fix involving returning only to the second decimal. This would definitely fix this issue 
+but I was worried that it would then create issues for anyone who wanted to legitimately calculate to a high number of decimals.
 
 ## Built With
 
