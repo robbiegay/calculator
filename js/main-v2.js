@@ -80,7 +80,7 @@ function loadCalc() {
 }
 
 // Keyboard btns
-document.addEventListener('keydown', function (e) {
+document.addEventListener('keydown', function(e) {
     // Keys: Shift and "=/+" --> "+"
     if (e.keyCode === 187 && e.shiftKey) {
         symPress('+');
