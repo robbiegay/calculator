@@ -23,12 +23,12 @@ Also N/A — runs online.
 Testing the various combinations of keyboard inputs was the hardest aspect of this project. I tested the following 
 combination of keys:
 
-Key:
+#### Key:
 * [] --> number
 * \+ --> represents any operand
 * = --> equals key
 
-Testing Cases:
+#### Testing Cases:
 * [] + [] = --> Basic math function
 * [] + [] + []... = --> Should allow a string of inputs and operands
 * [] + [] =, [] + [] = --> Should reset after an equal sign directly followed by a number
@@ -36,22 +36,22 @@ Testing Cases:
 * [] + = = =... --> Should keep adding the first number to the running sum
 * [] + [] = = =... --> Should continue to add to the running sum
 
-Things that shouldn't be allowed:
+#### Things that shouldn't be allowed:
 * Leading zeros (ex. 00003)
 * Multiple decimal points (ex. 4.423.34)
 * Pressing an operand BEFORE a number (ex. * 34 - 12 --> * will be ignored)
 * Pressing multiple operands in a row (ex. 4 + - / 2 --> will ignore + - and calculate 4 / 2)
 * Pressing an unlimited amount of numbers --> I capped input at 10 digits
 
-Certain situation resulted in NaN:
+#### Certain situation resulted in NaN:
 * 0 / 0 --> This now returns "Undefined". From my research, this is the correct mathematical result of 0 / 0
 * . + . --> Trying to perform a calculation on a decimal point will return "Invalid Use of Decimal"
 * num / 0 --> Returns Infinity
 
 Both 0 / 0 and . + . resets the calculator's internal memory.
 
-A case that I did not solve for:
-* I did not build any functionality for inputting negative numbers. (ex. - 5 will NOT be viewed as -5, the calculator will 
+#### Cases that I did not solve for:
+* I did not build any functionality for inputting negative values. (ex. - 5 will NOT be viewed as -5, the calculator will 
 view this as 5 (see above rule regarding leading operands)) Function results CAN, however, enter the realm of negative values (ex. 5 - 10 = -5)
 * Floating point errors (ex. .1 + .2 = 0.30000000000000004) 
 
