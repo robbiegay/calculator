@@ -16,7 +16,7 @@ None — Should run on any modern browser.
 
 ### Installing
 
-Also N/A — runs online.
+Runs online --> https://robbiegay.github.io/calculator/
 
 ## Running tests
 
